@@ -1,0 +1,15 @@
+import subprocess
+import speech_recognition as sr
+import os
+#removing old result file
+os.system('rm result.wav')
+#decoding original file to result file
+subprocess.call(['ffmpeg', '-i', 'audio.wav',
+                   'result.wav'])
+#Simple Speech to Text from file
+file = open('result.wav')
+r = sr.Recognizer()
+with sr.AudioFile(file) as source:
+    audio = r.record(source)
+    text = r.recognize_google(audio,language='en')
+print(text)
